@@ -11,6 +11,7 @@ import { reducer as formReducer } from 'redux-form';
 import '../assets/stylesheets/application.scss';
 import CarsIndex from './containers/cars_index';
 import CarsNew from './containers/cars_new';
+import CarShow from './containers/car_show';
 import carsReducer from './reducers/cars_reducer';
 
 const garageName = prompt("What is your garage?") || `garage${Math.floor(10 + (Math.random() * 90))}`;
@@ -35,7 +36,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/" exact component={CarsIndex} />
         <Route path="/cars/new" exact component={CarsNew} />
-        {/* <Route path="/cars/:id" component={CarShow} /> */}
+        <Route path="/cars/:id" component={CarShow} />
       </Switch>
     </Router>
   </Provider>,
