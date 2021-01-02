@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { reduxForm, Field, Form } from 'redux-form';
 import { createCar } from '../actions';
 
 class CarsNew extends Component {
-  handleSubmit = (values) => {
+  onSubmit = (values) => {
     this.props.createCar(this.props.garage, values, () => {
       this.props.history.push('/');
     });
@@ -12,7 +13,7 @@ class CarsNew extends Component {
 
   render() {
     return[
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+      <form onSubmit={this.props.handleSubmit(this.onSubmit)} key="form">
         <Field
           label="Brand"
           name="brand"
@@ -25,6 +26,19 @@ class CarsNew extends Component {
           type="text"
           component="input"
         />
+        <Field
+          label="Owner"
+          name="owner"
+          type="text"
+          component="input"
+        />
+        <Field
+          label="Plate"
+          name="plate"
+          type="text"
+          component="input"
+        />
+        <button type="submit">Create</button>
       </form>
     ];
   }
@@ -36,6 +50,11 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    { createCar: createCar }, dispatch );
+}
+
 export default reduxForm({ form: 'newCarForm' })(
-  connect(mapStateToProps, { createCar })(CarsNew)
+  connect(mapStateToProps, mapDispatchToProps)(CarsNew)
 );
