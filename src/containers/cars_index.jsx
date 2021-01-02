@@ -8,13 +8,17 @@ class CarsIndex extends Component {
 
   componentWillMount() {
     this.props.fetchCars(this.props.garage);
-    console.log(this.props.cars);
   }
 
   renderCars = () => {
     return this.props.cars.map((car) => {
       return (
-        <p>{car}</p>
+        <div key={car.id}>
+          <Link to={`/cars/${car.id}`}>
+            <p><strong>{car.brand} - {car.model}</strong></p>
+          </Link>
+          <p><strong>OWNER:</strong> {car.owner}</p>
+        </div>
       );
     })
   }
@@ -22,7 +26,14 @@ class CarsIndex extends Component {
   render() {
     return (
       <div>
-        {this.renderCars()}
+        <div>
+          {this.renderCars()}
+        </div>
+        <div>
+          <Link to={'/cars/new'}>
+            Insert New Car
+          </Link>
+        </div>
       </div>
     );
   }
