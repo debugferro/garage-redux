@@ -18,7 +18,12 @@ class CarShow extends Component {
     }
 
     return (
-      <p>{this.props.car.model}</p>
+      <div>
+        <p><strong>{this.props.car.brand} - {this.props.car.model}</strong></p>
+        <Link to="/">
+          <p>Index</p>
+        </Link>
+      </div>
     );
   }
 }
@@ -29,7 +34,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state, ownProps) {
-  const idFromUrl = parseInt(ownProps.match.params.id, 10); // From URL
+  const idFromUrl = parseInt(ownProps.match.params.id, 10);
   const car = state.cars.find(c => c.id === idFromUrl);
   return { car };
 }
