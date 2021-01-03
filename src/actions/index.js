@@ -1,6 +1,7 @@
 // TODO: add and export your own actions
 export const FETCH_CARS = 'FETCH_CARS';
 export const FETCH_CAR = 'FETCH_CAR';
+export const DELETE_CAR = 'DELETE_CAR';
 export const CREATE_CAR = 'CREATE_CAR';
 
 export function fetchCars(garageName) {
@@ -25,6 +26,19 @@ export function fetchCar(id) {
   }
 }
 
+export function deleteCar(id, callback) {
+  const root_url = `https://wagon-garage-api.herokuapp.com/cars/${id}`;
+  const promise = fetch(root_url, {
+    method: 'DELETE'
+  }).then(response => response.json())
+    .then(() => callback());
+
+  return {
+    type: DELETE_CAR,
+    payload: promise
+  }
+}
+
 export function createCar(garageName, values, callback) {
   const root_url = `https://wagon-garage-api.herokuapp.com/${garageName}/cars`;
   const body =
@@ -44,9 +58,6 @@ export function createCar(garageName, values, callback) {
     body: JSON.stringify(body)
     }).then(response => response.json())
       .then(() => callback());
-
-    console.log(request);
-    console.log(body);
 
     return {
       type: CREATE_CAR,
